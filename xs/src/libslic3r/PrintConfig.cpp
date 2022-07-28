@@ -2145,4 +2145,4 @@ const CLIActionsConfigDef    cli_actions_config_def;
 const CLITransformConfigDef  cli_transform_config_def;
 const CLIMiscConfigDef       cli_misc_config_def;
 
-}
+} // namespace slic3r
