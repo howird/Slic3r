@@ -10,7 +10,7 @@ COPY . /slic3r
 WORKDIR "/slic3r"
 RUN mkdir build && \
     cd build && \
-    cmake ../src && \
+    cmake .. && \
     cmake --build . -- -j4 
 
 WORKDIR "/slic3r/build"
