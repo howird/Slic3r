@@ -11,7 +11,7 @@ WORKDIR "/slic3r"
 RUN mkdir build && \
     cd build && \
     cmake ../src && \
-    cmake --build . -- -j4 
+    cmake --build .
 
 WORKDIR "/slic3r/build"
 
