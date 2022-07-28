@@ -146,7 +146,7 @@ set(POLY2TRI_INCLUDES
 )
 set(COMMON_INCLUDES
     ${LIBDIR}
-    ${CMAKE_CURRENT_SOURCE_DIR}/standalone/
+    ${LIBDIR}/standalone/
 )
 set(SLIC3R_INCLUDES
     ${COMMON_INCLUDES}
@@ -159,7 +159,6 @@ set(LIBSLIC3R_INCLUDES
     ${LIBDIR}/libslic3r
     ${LIBDIR}/libslic3r/IO
 )
-
 
 add_library(ZipArchive SHARED
     ${LIBDIR}/Zip/ZipArchive.cpp

@@ -2,9 +2,9 @@
 #include <boost/lexical_cast.hpp>
 #include <map>
 
-#include "../../xs/src/libslic3r/ConfigBase.hpp"
-#include "../../xs/src/libslic3r/Config.hpp"
-#include "../../xs/src/libslic3r/PrintConfig.hpp"
+#include "../src/libslic3r/ConfigBase.hpp"
+#include "../src/libslic3r/Config.hpp"
+#include "../src/libslic3r/PrintConfig.hpp"
 
 namespace py = pybind11;
 
