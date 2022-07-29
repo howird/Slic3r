@@ -352,6 +352,5 @@ set(LIBSLIC3R_DEPENDS
 )
 
 add_subdirectory(${LIBDIR}/pybind11)
-pybind11_add_module(pyslic3r python/pyslic3r.cpp python/point.cpp python/config.cpp python/model.cpp)
+pybind11_add_module(pyslic3r python/pyslic3r.cpp python/point.cpp python/config.cpp python/model.cpp python/print.cpp)
 target_link_libraries(pyslic3r PUBLIC libslic3r ${LIBSLIC3R_DEPENDS})
-

@@ -26,8 +26,7 @@ core
 CMakeCache.txt
 *.cmake
 *.exe
-src/test/test_options.hpp
-src/slic3r
+test/test_options.hpp
 build/*
 serial.txt
 .vscode

@@ -1,0 +1,10 @@
+version: "3.8"
+services:
+  pyslic3r:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    image: "pyslic3r:debug"
+    tty: true 
+    volumes:
+      - .:/slic3r
