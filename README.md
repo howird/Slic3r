@@ -52,15 +52,11 @@ document first!
 
 ### Directory structure
 
-* `package/`: the scripts used for packaging the executables
-* `src/`: the C++ source of the `slic3r` executable and the CMake definition file for compiling it
-* `src/GUI`: The C++ GUI.
-* `src/test`: New test suite for libslic3r and the GUI. Implemented with [Catch2](https://github.com/catchorg/Catch2)
-* `t/`: the test suite (deprecated)
-* `utils/`: various useful scripts
-* `xs/src/libslic3r/`: C++ sources for libslic3r
-* `xs/t/`: test suite for libslic3r (deprecated)
-* `xs/xsp/`: bindings for calling libslic3r from Perl (XS) (deprecated)
+* `docker/`: dockerfile for compiling pyslic3r
+* `python/`: pybind11 python bindings for libslic3r
+* `src/`: C++ sources libraries used by libslic3r
+* `src/libslic3r/`: C++ sources for libslic3r
+* `test`: New test suite for libslic3r. Implemented with [Catch2](https://github.com/catchorg/Catch2)
 
 ### Acknowledgements
 
