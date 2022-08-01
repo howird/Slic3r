@@ -81,7 +81,7 @@ Houses `ConfigBase` class and all of its base Classes
 ### `StaticPrintConfig` inherits from `PrintConfigBase` and `PrintConfig`
 - base class for `PrintObjectConfig` `GCodeConfig` to inherit from
 
-### `PrintObjectConfig` `GCodeConfig` classes inherit from `StaticPrintConfig` 
+### `PrintObjectConfig`, `GCodeConfig` classes inherit from `StaticPrintConfig` 
 - have attributes for each of the options and sets them to their defaults at construction
 
 ### `PrintConfig` inherits from `GCodeConfig`
