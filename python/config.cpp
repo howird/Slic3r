@@ -47,19 +47,23 @@ void pybind_config(py::module& m) {
         ;
     
     py::class_<Slic3r::ConfigBase, PyConfigBase>(m, "ConfigBase")
-        .def(py::init<>())
-        .def("optptr", &Slic3r::ConfigBase::optptr)
-        .def("keys", &Slic3r::ConfigBase::keys)
-        .def("load", [](Slic3r::ConfigBase &conf, const std::string &file) {
-            conf.load(file);
-        })
-        .def("save", [](Slic3r::ConfigBase &conf, const std::string &file) {
-            conf.save(file);
-        })
+        // .def("load", &Slic3r::ConfigBase::load)
+        // .def("save", &Slic3r::ConfigBase::save)
         ;
     
     py::class_<Slic3r::DynamicConfig, Slic3r::ConfigBase, PyDynamicConfig>(m, "DynamicConfig")
-        .def(py::init())
+        .def(py::init([](){
+            Slic3r::DynamicConfig* config = new Slic3r::DynamicConfig();
+            Slic3r::ConfigDef* config_def = new Slic3r::ConfigDef();
+
+            config_def->merge(Slic3r::cli_actions_config_def);
+            config_def->merge(Slic3r::cli_transform_config_def);
+            config_def->merge(Slic3r::cli_misc_config_def);
+            config_def->merge(Slic3r::print_config_def);
+
+            config->def = config_def;
+            return config;
+        }))
         .def("read_cli", [](
             Slic3r::DynamicConfig &dconf,
             const std::vector<std::string> &tokens,
@@ -68,11 +72,12 @@ void pybind_config(py::module& m) {
         {
             dconf.read_cli(tokens, extra, keys);
         })
-        // .def_readonly("type", &Slic3r::ConfigOptionDef::type)
-        // .def("options", [](Slic3r::DynamicConfig &dconf) {
-        //     return dconf.def->options;
-        // })
-        // .def("options", Slic3r::DynamicConfig::def::options)
+        .def("load", [](Slic3r::DynamicConfig &conf, const std::string &file) {
+            conf.load(file);
+        })
+        .def("save", [](Slic3r::DynamicConfig &conf, const std::string &file) {
+            conf.save(file);
+        })
         ;
 
     py::class_<Slic3r::DynamicPrintConfig, Slic3r::DynamicConfig, PyDynamicPrintConfig>(m, "DynamicPrintConfig")
