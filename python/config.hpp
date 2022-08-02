@@ -1,6 +1,8 @@
 #include "pyslic3r.hpp"
 #include <boost/lexical_cast.hpp>
 #include <map>
+#include <vector>
+#include <string>
 
 #include "../src/libslic3r/ConfigBase.hpp"
 #include "../src/libslic3r/Config.hpp"
