@@ -11,7 +11,14 @@
     - `models: vector<Model>`
     - `last_outfile: string`
 - `CLI::run()`:
-    - 
+    - reads all config files
+    - loads all models from input files and puts them in models vector
+    - applies all specified transforms to models
+    - pseudocode:
+        - for each model in the models vector:
+            - create obj: SimplePrint `print`
+            - sets `print.model` to model and applies `"dont_arrange"`, `"center"` and `"align_xy"` from `config`
+            - runs `print.export_gcode()`
 
 # src/ConfigBase.cpp
 Houses `ConfigBase` class and all of its base Classes
@@ -81,12 +88,25 @@ Houses `ConfigBase` class and all of its base Classes
 ### `StaticPrintConfig` inherits from `PrintConfigBase` and `PrintConfig`
 - base class for `PrintObjectConfig` `GCodeConfig` to inherit from
 
-### `PrintObjectConfig`, `GCodeConfig` classes inherit from `StaticPrintConfig` 
+### `PrintObjectConfig` `GCodeConfig` classes inherit from `StaticPrintConfig` 
 - have attributes for each of the options and sets them to their defaults at construction
 
 ### `PrintConfig` inherits from `GCodeConfig`
 - has attributes for options
 
+# src/SimplePrint
+#### `SimplePrint::set_model(const Model &model)`
+- sets SimplePrint::_model to given model
+- translates it to 0
+#### `SimplePrint::export_gcode()`
+- runs `Print::validate` then `Print::export_gcode(str)`
+- check that all parts fit in bed shape and warn if they don't
 
+# src/Print
+### `Print::export_gcode(str)`
+- function run by simple print
+- calls `Print::export_gcode(ostream)` internally
+- then runs post processing
 
-# src/
+### `Print::export_gcode(ostream)`
+- runs `Print::process()`å

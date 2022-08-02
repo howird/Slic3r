@@ -11,7 +11,19 @@ void pybind_config(py::module& m) {
         ;
     
     py::class_<Slic3r::DynamicConfig>(m, "DynamicConfig")
-        .def(py::init())
+        // .def(py::init<const ConfigDef*>())
+        .def(py::init([](){
+            Slic3r::DynamicConfig* config = new Slic3r::DynamicConfig();
+            Slic3r::ConfigDef* config_def = new Slic3r::ConfigDef();
+
+            config_def->merge(Slic3r::cli_actions_config_def);
+            config_def->merge(Slic3r::cli_transform_config_def);
+            config_def->merge(Slic3r::cli_misc_config_def);
+            config_def->merge(Slic3r::print_config_def);
+
+            config->def = config_def;
+            return config;
+        }))
         .def("load", [](Slic3r::DynamicConfig &dconf, const std::string &file) {
             dconf.load(file);
         })
@@ -26,11 +38,6 @@ void pybind_config(py::module& m) {
         {
             dconf.read_cli(tokens, extra, keys);
         })
-        // .def_readonly("type", &Slic3r::ConfigOptionDef::type)
-        // .def("options", [](Slic3r::DynamicConfig &dconf) {
-        //     return dconf.def->options;
-        // })
-        // .def("options", Slic3r::DynamicConfig::def::options)
         ;
 
     py::class_<Slic3r::DynamicPrintConfig, Slic3r::DynamicConfig>(m, "DynamicPrintConfig")
