@@ -8,6 +8,4 @@
 
 namespace py = pybind11;
 
-PYBIND11_MAKE_OPAQUE(std::map<Slic3r::t_config_option_key, Slic3r::ConfigOptionDef>);
-
 void pybind_config(py::module& m);

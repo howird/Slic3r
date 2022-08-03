@@ -16,7 +16,7 @@
     - applies all specified transforms to models
     - pseudocode:
         - for each model in the models vector:
-            - create obj: SimplePrint `print`
+            - create obj: `SimplePrint print`
             - sets `print.model` to model and applies `"dont_arrange"`, `"center"` and `"align_xy"` from `config`
             - runs `print.export_gcode()`
 
@@ -109,4 +109,7 @@ Houses `ConfigBase` class and all of its base Classes
 - then runs post processing
 
 ### `Print::export_gcode(ostream)`
-- runs `Print::process()`å
+- runs `Print::process()`
+
+### `Print::process`
+- runs in

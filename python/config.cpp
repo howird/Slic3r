@@ -4,32 +4,18 @@ void pybind_config(py::module& m) {
     py::class_<Slic3r::ConfigDef>(m, "ConfigDef")
         .def(py::init())
         .def("merge", &Slic3r::ConfigDef::merge)
-        ;
-    
-    py::class_<Slic3r::ConfigOptionDef>(m, "ConfigOptionDef")
-        .def_readwrite("type", &Slic3r::ConfigOptionDef::type)
+        .def("load_defaults", [](Slic3r::ConfigDef &config_def){
+            config_def.merge(Slic3r::cli_actions_config_def);
+            config_def.merge(Slic3r::cli_transform_config_def);
+            config_def.merge(Slic3r::cli_misc_config_def);
+            config_def.merge(Slic3r::print_config_def);
+        })
         ;
     
     py::class_<Slic3r::DynamicConfig>(m, "DynamicConfig")
-        // .def(py::init<const ConfigDef*>())
-        .def(py::init([](){
-            Slic3r::DynamicConfig* config = new Slic3r::DynamicConfig();
-            Slic3r::ConfigDef* config_def = new Slic3r::ConfigDef();
-
-            config_def->merge(Slic3r::cli_actions_config_def);
-            config_def->merge(Slic3r::cli_transform_config_def);
-            config_def->merge(Slic3r::cli_misc_config_def);
-            config_def->merge(Slic3r::print_config_def);
-
-            config->def = config_def;
-            return config;
-        }))
-        .def("load", [](Slic3r::DynamicConfig &dconf, const std::string &file) {
-            dconf.load(file);
-        })
-        .def("save", [](Slic3r::DynamicConfig &dconf, const std::string &file) {
-            dconf.save(file);
-        })
+        .def(py::init<const ConfigDef*>())
+        .def("load", [](Slic3r::DynamicConfig &dconf, const std::string &file) {dconf.load(file);})
+        .def("save", [](Slic3r::DynamicConfig &dconf, const std::string &file) {dconf.save(file);})
         .def("read_cli", [](
             Slic3r::DynamicConfig &dconf,
             const std::vector<std::string> &tokens,
@@ -52,5 +38,8 @@ void pybind_config(py::module& m) {
 
     py::class_<Slic3r::FullPrintConfig>(m, "FullPrintConfig")
         .def(py::init())
+        .def("save", [](Slic3r::FullPrintConfig &conf, const std::string &file) {conf.save(file);})
+        .def("apply", [](Slic3r::FullPrintConfig &conf, Slic3r::DynamicPrintConfig dconf) {conf.apply(dconf);})
+        .def("validate", [](Slic3r::FullPrintConfig &conf) {conf.validate();})
         ;
 }
